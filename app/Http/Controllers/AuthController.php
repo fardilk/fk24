@@ -11,6 +11,7 @@ class AuthController extends Controller
     /**
      * Handle an authentication attempt.
      */
+     
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
