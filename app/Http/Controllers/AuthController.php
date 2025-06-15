@@ -15,19 +15,11 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        try {
-            if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(['message' => 'Unauthorized'], 401);
-            }
-        } catch (JWTException $e) {
-            return response()->json(['message' => 'Could not create token'], 500);
+        if (!$token = auth('api')->attempt($credentials)) {
+            return response()->json(['message' => 'Unauthorized'], 401);
         }
 
-        $user = auth()->user();
-
-        if ($user->role !== 'administrator') {
-            return response()->json(['message' => 'Access Denied'], 403);
-        }
+        $user = auth('api')->user();
 
         return response()->json([
             'token' => $token,
