@@ -14,13 +14,16 @@ class AuthController extends Controller
      
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
 
-        if (!$token = auth('api')->attempt($credentials)) {
+        if (!$token = JWTAuth::attempt($credentials)) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
         // check
-        $user = auth('api')->user();
+        $user = JWTAuth::user();
 
         return response()->json([
             'token' => $token,
