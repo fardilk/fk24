@@ -64,3 +64,11 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Front-end Authentication
+
+This project includes example React components written in TypeScript for JWT-based login.
+
+- `Login.tsx` submits credentials to `/api/login` and stores the returned token and role under `his_token` and `his_role`.
+- `ProtectedRoute.tsx` checks these values and redirects to `/login` if they are missing or invalid.
+- A simple `logout` helper clears the stored values and navigates back to `/login`.
